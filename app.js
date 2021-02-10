@@ -11,7 +11,8 @@ var routes = require('./routes/index');
 
 var category = require('./routes/category');
 var article = require('./routes/article');
-
+var user = require('./routes/user');
+var order = require('./routes/order');
 var app = express();
 
 // view engine setup
@@ -29,6 +30,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/category', category);
 app.use('/article', article);
+app.use('/user', user);
+app.use('/order', order);
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
