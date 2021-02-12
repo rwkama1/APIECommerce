@@ -45,10 +45,10 @@ router.post('/closeOrder', async function (req, res) {
         res.status(400).send(error.toString());
     }
 });
-router.post('/saveOrder/(:idcard)', async function (req, res) {
+router.post('/saveOrder/(:idencard)', async function (req, res) {
     try
     {
-        var dtclient = FactoryLogic.getLUser().getUser(req.params.idcard);
+        var dtclient = await FactoryLogic.getLUser().getUser(req.params.idencard);
         var savorder=await FactoryLogic.getLOrder().saveOrder(dtclient);     
         res.send(savorder);
     }
@@ -138,11 +138,35 @@ router.get('/getDeliveredOrders', async function (req, res) {
     res.status(400).send(error.toString());
    }
 });
+router.get('/getDeliveredOrders', async function (req, res) {
+    try
+    {
+    var getor=await FactoryLogic.getLOrder().getDeliveredOrders();  
+    res.send(getor);
+     }
+   catch(error)
+   {
+    res.status(400).send(error.toString());
+   }
+});
+router.get('/getOrdersbyDates', async function (req, res) {
+    try
+    {
+        
+    var getor=await FactoryLogic.getLOrder().getOrdersbyDates(req.body.date1,req.body.date2);  
+    res.send(getor);
+     }
+   catch(error)
+   {
+    res.status(400).send(error.toString());
+   }
+});
 //************************** */
 router.post('/deliverOrder/(:id)', async function (req, res) {
     try
     {
-    let getorder = await FactoryLogic.getLOrder().getOrder(req.params.id);
+    var parseeint=parseInt(req.params.id);
+    let getorder = await FactoryLogic.getLOrder().getOrder(parseeint);
     var deliord=await FactoryLogic.getLOrder().deliverOrder(getorder);  
     res.send(deliord);
      }
@@ -154,7 +178,8 @@ router.post('/deliverOrder/(:id)', async function (req, res) {
 router.post('/personalOrder/(:id)', async function (req, res) {
     try
     {
-    let getorder = await FactoryLogic.getLOrder().getOrder(req.params.id);
+   var parseeint=parseInt(req.params.id);
+    let getorder = await FactoryLogic.getLOrder().getOrder(parseeint);
     var persorder=await FactoryLogic.getLOrder().personalOrder(getorder);  
     res.send(persorder);
      }
