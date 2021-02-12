@@ -138,17 +138,7 @@ router.get('/getDeliveredOrders', async function (req, res) {
     res.status(400).send(error.toString());
    }
 });
-router.get('/getDeliveredOrders', async function (req, res) {
-    try
-    {
-    var getor=await FactoryLogic.getLOrder().getDeliveredOrders();  
-    res.send(getor);
-     }
-   catch(error)
-   {
-    res.status(400).send(error.toString());
-   }
-});
+
 router.get('/getOrdersbyDates', async function (req, res) {
     try
     {
