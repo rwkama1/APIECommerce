@@ -24,8 +24,9 @@ router.get('/getArticle/(:barcode)', async function (req, res) {
 router.post('/addArticle', async function (req, res) {
     try
     {
+     var scat=await FactoryLogic.getLCategory().getCategory(req.body.category);
     var dtart = new Article(req.body.barcode,req.body.name,req.body.price,req.body.stock,
-        req.body.description,req.body.img,req.body.category);
+        req.body.description,req.body.img,scat);
     var addArticle=await FactoryLogic.getLArticle().addArticle(dtart);
     res.send(addArticle);
     }
@@ -37,8 +38,9 @@ router.post('/addArticle', async function (req, res) {
 router.put('/updateArticle', async function (req, res) {
     try
     {
+        var scat=await FactoryLogic.getLCategory().getCategory(req.body.category);
     var dtartup = new Article(req.body.barcode,req.body.name,req.body.price,req.body.stock,
-        req.body.description,req.body.img,req.body.category);
+        req.body.description,req.body.img,scat);
     var updateArticle=await FactoryLogic.getLArticle().updateArticle(dtartup);
     res.send(updateArticle);
     }

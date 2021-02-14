@@ -132,4 +132,16 @@ router.post('/loginUser', async function (req, res) {
         res.status(400).send(error.toString());
     }
 });
+router.get('/getUser/(:idcard)', async function (req, res) {
+    try
+    {
+  
+    var luser=await FactoryLogic.getLUser().getUser(req.params.idcard);
+    res.send(luser);
+    }
+    catch(error)
+    {
+        res.status(400).send(error.toString());
+    }
+});
 module.exports = router;
